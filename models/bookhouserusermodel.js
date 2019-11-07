@@ -29,7 +29,7 @@ const bookhouseuserSchema = new mongoose.Schema(
       type: Number,
       default: 0
     },
-    audit: {
+    history: {
       type: Array,
       default: []
     }

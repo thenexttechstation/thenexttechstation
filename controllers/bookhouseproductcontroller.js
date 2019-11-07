@@ -276,6 +276,27 @@ exports.ProductSearch = (request, response) => {
     });
 };
 
+exports.decreaseInventory = (req, res, next) => {
+  console.log("Inside decreaseInventory");
+  let bulkOps = req.body.order.bookhouseproducts.map(item => {
+    return {
+      updateOne: {
+        filter: { _id: item._id },
+        update: { $inc: { quantity: -item.count, mostPurchased: +item.count } }
+      }
+    };
+  });
+
+  BookHouseProduct.bulkWrite(bulkOps, {}, (error, bookhouseproducts) => {
+    if (error) {
+      return res.status(400).json({
+        error: "Could not update product"
+      });
+    }
+    next();
+  });
+};
+
 exports.listSearch = (req, res) => {
   // create query object to hold search value and category value
   const query = {};

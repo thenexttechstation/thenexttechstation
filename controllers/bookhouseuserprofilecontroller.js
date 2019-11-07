@@ -12,6 +12,40 @@ exports.findProfileByUserId = (request, response, next, id) => {
   });
 };
 
+exports.addOrdersToUserHistory = (request, response, next) => {
+  console.log(
+    "iNSIDE addOrderstouser" + request.body.order.bookhouseproducts.price
+  );
+  let bookhistory = [];
+  request.body.order.bookhouseproducts.forEach(item => {
+    bookhistory.push({
+      _id: item._id,
+      bookname: item.bookname,
+      bookdescription: item.bookdescription,
+      bookhousecategory: item.bookhousecategory,
+      author: item.author,
+      price: item.price,
+      quantity: item.count,
+      transaction_id: request.body.order.transaction_id,
+      amount: request.body.order.amount
+    });
+  });
+  BookHouseUser.findOneAndUpdate(
+    { _id: request.profile._id },
+    { $push: { history: bookhistory } },
+    { new: true },
+    (error, data) => {
+      if (error) {
+        console.log("error" + error);
+        return response.status(400).json({
+          error: "Error in update in User purchase history"
+        });
+      }
+      next();
+    }
+  );
+};
+
 exports.getsingleUser = (request, response) => {
   return response.json(request.profile);
 };

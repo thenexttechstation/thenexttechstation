@@ -19,7 +19,7 @@ const BookHouseCartItem = mongoose.model(
 
 const BookHouseOrderSchema = new mongoose.Schema(
   {
-    products: [BookHouseCartItemSchema],
+    bookhouseproducts: [BookHouseCartItemSchema],
     transaction_id: {},
     amount: { type: Number },
     address: String,
@@ -29,8 +29,7 @@ const BookHouseOrderSchema = new mongoose.Schema(
       enum: ["Not processed", "Processing", "Shipped", "Delivered", "Cancelled"] // enum means string objects
     },
     updated: Date,
-    bookhouseusername: { type: String },
-    bookhouseuseremail: { type: String }
+    bookhouseuser: { type: ObjectId, ref: "BookHouseUser" }
   },
   { timestamps: true }
 );

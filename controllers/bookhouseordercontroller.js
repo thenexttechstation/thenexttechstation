@@ -16,3 +16,17 @@ exports.createOrder = (req, res) => {
     res.json(data);
   });
 };
+
+exports.listOrders = (req, res) => {
+  BookHouseOrder.find()
+    .populate("bookhouseuser", "_id name, address")
+    .sort("-created")
+    .exec((err, orders) => {
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(error)
+        });
+      }
+      res.json(orders);
+    });
+};
