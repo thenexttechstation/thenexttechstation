@@ -16,7 +16,8 @@ const {
   findCategoriesToProduct,
   ProductSearch,
   loadProductImage,
-  listSearch
+  listSearch,
+  listAuthorSearch
 } = require("../controllers/bookhouseproductcontroller");
 const {
   findProfileByUserId
@@ -52,6 +53,7 @@ router.get(
 );
 router.get("/categoriestoproduct", findCategoriesToProduct);
 router.get("/products/search", listSearch);
+router.get("/products/authorsearch", listAuthorSearch);
 
 router.post("/products/by/search", ProductSearch);
 router.get("/product/image/:bookhouseproductId", loadProductImage);

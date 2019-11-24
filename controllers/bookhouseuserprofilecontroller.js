@@ -1,5 +1,9 @@
 const BookHouseUser = require("../models/bookhouserusermodel");
 
+const {
+  BookHouseOrder,
+  BookHouseCartItem
+} = require("../models/bookhouseordermodel");
 exports.findProfileByUserId = (request, response, next, id) => {
   BookHouseUser.findById(id).exec((error, bookhouseuser) => {
     if (error || !bookhouseuser) {
@@ -10,6 +14,21 @@ exports.findProfileByUserId = (request, response, next, id) => {
     request.profile = bookhouseuser;
     next();
   });
+};
+
+exports.purchaseBookHistory = (req, res) => {
+  console.log("inside purchase" + req.profile._id);
+  BookHouseOrder.find({ bookhouseuser: req.profile._id })
+    .populate("bookhouseuser", "_id username")
+    .sort("-created")
+    .exec((err, orders) => {
+      if (err) {
+        return res.status(400).json({
+          error: err
+        });
+      }
+      res.json(orders);
+    });
 };
 
 exports.addOrdersToUserHistory = (request, response, next) => {

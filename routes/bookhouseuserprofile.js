@@ -8,7 +8,8 @@ const {
 const {
   findProfileByUserId,
   getsingleUser,
-  updateUser
+  updateUser,
+  purchaseBookHistory
 } = require("../controllers/bookhouseuserprofilecontroller");
 
 router.get(
@@ -26,15 +27,22 @@ router.get(
   "/bookhouseuser/:bookhouseuserId",
   requireAuthentication,
   isAuth,
-  isadministrator,
+
   getsingleUser
 );
 router.put(
   "/bookhouseuser/update/:bookhouseuserId",
   requireAuthentication,
   isAuth,
-  isadministrator,
+
   updateUser
 );
+router.get(
+  "/orderspurchase/by/bookhouseuser/:bookhouseuserId",
+  requireAuthentication,
+  isAuth,
+  purchaseBookHistory
+);
+
 router.param("bookhouseuserId", findProfileByUserId);
 module.exports = router;

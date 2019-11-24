@@ -82,7 +82,7 @@ exports.createProduct = (request, response) => {
         console.log("bookhousecategory" + bookhousecategory);
         //console.log("image" + image.size);
         console.log("deliverable" + deliverable);
-
+        console.log("image" + image.size);
         return response.status(400).json({
           error: "Fields are mandatory"
         });
@@ -147,10 +147,6 @@ exports.updateProduct = (request, response) => {
         console.log("bookhousecategory" + bookhousecategory);
         //console.log("image" + image.size);
         console.log("deliverable" + deliverable);
-
-        return response.status(400).json({
-          error: "Fields are mandatory"
-        });
       }
 
       bookhouseproduct.image.data = filesystem.readFileSync(files.image.path);
@@ -297,6 +293,28 @@ exports.decreaseInventory = (req, res, next) => {
   });
 };
 
+exports.listAuthorSearch = (req, res) => {
+  // create query object to hold search value and category value
+  const query = {};
+  // assign search value to query.name
+  if (req.query.searchauthor) {
+    query.author = { $regex: req.query.searchauthor, $options: "i" };
+    // assigne category value to query.category
+    if (req.query.bookhousecategory && req.query.bookhousecategory != "All") {
+      query.bookhousecategory = req.query.bookhousecategory;
+    }
+    // find the product based on query object with 2 properties
+    // search and category
+    BookHouseProduct.find(query, (err, bookhouseproducts) => {
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err)
+        });
+      }
+      res.json(bookhouseproducts);
+    }).select("-image");
+  }
+};
 exports.listSearch = (req, res) => {
   // create query object to hold search value and category value
   const query = {};

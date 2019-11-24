@@ -15,7 +15,10 @@ const {
 } = require("../controllers/bookhouseuserprofilecontroller");
 const {
   createOrder,
-  listOrders
+  listOrders,
+  getOrderStatusValues,
+  orderById,
+  updateOrderStatus
 } = require("../controllers/bookhouseordercontroller");
 
 router.post(
@@ -25,6 +28,21 @@ router.post(
   addOrdersToUserHistory,
   decreaseInventory,
   createOrder
+);
+router.put(
+  "/order/:orderId/status/:bookhouseuserId",
+  requireAuthentication,
+  isAuth,
+  isadministrator,
+  updateOrderStatus
+);
+
+router.get(
+  "/order/orderstatus-values/:bookhouseuserId",
+  requireAuthentication,
+  isAuth,
+  isadministrator,
+  getOrderStatusValues
 );
 
 router.get(
@@ -36,5 +54,6 @@ router.get(
 );
 
 router.param("bookhouseuserId", findProfileByUserId);
+router.param("orderId", orderById);
 
 module.exports = router;

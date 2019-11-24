@@ -4,8 +4,8 @@ const { ObjectId } = mongoose.Schema;
 
 const BookHouseCartItemSchema = new mongoose.Schema(
   {
-    product: { type: ObjectId, ref: "Product" },
-    name: String,
+    bookhouseproduct: { type: ObjectId, ref: "BookHouseProduct" },
+    bookname: String,
     price: Number,
     count: Number
   },
