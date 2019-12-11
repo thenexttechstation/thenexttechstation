@@ -8,7 +8,7 @@ exports.findProfileByUserId = (request, response, next, id) => {
   BookHouseUser.findById(id).exec((error, bookhouseuser) => {
     if (error || !bookhouseuser) {
       return response.status(400).json({
-        error: "No User"
+        error: "No Userdd"
       });
     }
     request.profile = bookhouseuser;
@@ -35,6 +35,7 @@ exports.addOrdersToUserHistory = (request, response, next) => {
   console.log(
     "iNSIDE addOrderstouser" + request.body.order.bookhouseproducts.price
   );
+
   let bookhistory = [];
   request.body.order.bookhouseproducts.forEach(item => {
     bookhistory.push({

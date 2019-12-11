@@ -47,6 +47,47 @@ exports.logout = (request, response) => {
     message: "Signed out successfully"
   });
 };
+
+exports.createSocialUser = (request, response, next) => {
+  console.log("inside  createSocialUser");
+  // find the user based on email
+  //const bookhouseuserdata = +JSON.stringify(request.body.bookhouseuser);
+  const { email, password, username, provider } = request.body;
+  //console.log("data" + bookhouseuserdata.email);
+  console.log("request" + JSON.stringify(request.body));
+  //const email = +JSON.stringify(+JSON.stringify(request.body).email);
+  //console.log("bookhouseuser" + JSON.stringify(bookhouseuser));
+  console.log("email" + email);
+
+  console.log("inside  createSocialUser email" + email);
+
+  BookHouseUser.findOne({ email }, (error, bookhouseuser) => {
+    console.log("here");
+    if (bookhouseuser) {
+      console.log("data is there");
+    }
+    if (error || !bookhouseuser) {
+      console.log("No data");
+      const bookhouseusersave = new BookHouseUser();
+      bookhouseusersave.email = email;
+      bookhouseusersave.password = password;
+      bookhouseusersave.username = username;
+      bookhouseusersave.provider = provider;
+      bookhouseusersave.save((error, bookhouseusersave) => {
+        if (error) {
+          return response.status(400).json({
+            error
+          });
+        }
+      });
+      return response.status(400).json({
+        error: error
+      });
+    }
+    next();
+  });
+};
+
 exports.login = (request, response) => {
   // find the user based on email
   const { email, password } = request.body;

@@ -24,6 +24,9 @@ const bookhouseproductSchema = new mongoose.Schema(
       trim: true,
       required: true
     },
+    imageurl: {
+      type: String
+    },
     bookhousecategory: {
       type: ObjectId,
       ref: "BookHouseCategory",

@@ -10,6 +10,10 @@ const bookhouseuserSchema = new mongoose.Schema(
       maxlength: 50,
       required: true
     },
+    provider: {
+      type: String,
+      maxlength: 30
+    },
     email: {
       type: String,
       trim: true,

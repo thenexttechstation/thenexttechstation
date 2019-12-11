@@ -9,7 +9,7 @@ sgMail.setApiKey(
 
 exports.orderById = (req, res, next, id) => {
   BookHouseOrder.findById(id)
-    .populate("bookhouseproducts.bookhouseproduct", "bookname price")
+    .populate("bookhouseproducts.bookhouseproduct", "bookname price imageurl")
     .exec((err, bookhouseorder) => {
       if (err || !bookhouseorder) {
         return res.status(400).json({
@@ -37,9 +37,13 @@ exports.updateOrderStatus = (req, res) => {
 };
 
 exports.createOrder = (req, res) => {
+  console.log("Here there" + JSON.stringify(req.body.order));
+
   // console.log("CREATE ORDER: ", req.body);
-  req.body.order.user = req.profile;
+  //req.body.order.user = req.profile;
   const order = new BookHouseOrder(req.body.order);
+  console.log("Here" + JSON.stringify(order));
+
   order.save((error, data) => {
     if (error) {
       return res.status(400).json({

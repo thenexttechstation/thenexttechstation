@@ -7,6 +7,9 @@ const BookHouseCartItemSchema = new mongoose.Schema(
     bookhouseproduct: { type: ObjectId, ref: "BookHouseProduct" },
     bookname: String,
     price: Number,
+    imageurl: String,
+    bookdescription: String,
+    author: String,
     count: Number
   },
   { timestamps: true }

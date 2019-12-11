@@ -63,7 +63,8 @@ exports.createProduct = (request, response) => {
         quantity,
         bookhousecategory,
         image,
-        deliverable
+        deliverable,
+        imageurl
       } = fields;
       if (
         !bookname ||
@@ -72,7 +73,8 @@ exports.createProduct = (request, response) => {
         !price ||
         !quantity ||
         !bookhousecategory ||
-        !deliverable
+        !deliverable ||
+        !imageurl
       ) {
         console.log("bookname" + bookname);
         console.log("bookdescription" + bookdescription);
@@ -82,7 +84,7 @@ exports.createProduct = (request, response) => {
         console.log("bookhousecategory" + bookhousecategory);
         //console.log("image" + image.size);
         console.log("deliverable" + deliverable);
-        console.log("image" + image.size);
+
         return response.status(400).json({
           error: "Fields are mandatory"
         });
@@ -128,7 +130,8 @@ exports.updateProduct = (request, response) => {
         quantity,
         bookhousecategory,
         image,
-        deliverable
+        deliverable,
+        imageurl
       } = fields;
       if (
         !bookname ||
@@ -137,7 +140,8 @@ exports.updateProduct = (request, response) => {
         !price ||
         !quantity ||
         !bookhousecategory ||
-        !deliverable
+        !deliverable ||
+        !imageurl
       ) {
         console.log("bookname" + bookname);
         console.log("bookdescription" + bookdescription);
