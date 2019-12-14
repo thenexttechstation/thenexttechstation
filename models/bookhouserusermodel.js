@@ -14,6 +14,35 @@ const bookhouseuserSchema = new mongoose.Schema(
       type: String,
       maxlength: 30
     },
+    phoneno: {
+      type: String,
+      maxlength: 10
+    },
+    housename: {
+      type: String,
+      maxlength: 50
+    },
+    streetname: {
+      type: String,
+      maxlength: 20
+    },
+    city: {
+      type: String,
+      maxlength: 30
+    },
+    state: {
+      type: String,
+      maxlength: 25
+    },
+    country: {
+      type: String,
+      maxlength: 20
+    },
+    Zipcode: {
+      type: String,
+      maxlength: 6
+    },
+
     email: {
       type: String,
       trim: true,
